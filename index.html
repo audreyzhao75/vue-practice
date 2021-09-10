@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="helloVue">
+        <h1 v-text="title"></h1>
+        <p>{{ message }}</p>
+    </div>
+    <div id="example">
+        <h1>{{ title + ', ' + name.toUpperCase()}}</h1>
+        <img :src="img.src" :alt="img.alt">
+        <p>{{ message }}</p>
+    </div>
+
+    <hr>
+
+    <div id="book">
+        <h2 v-on:click="toggleDetails"> {{ title}} (click for more)</h2>
+        <!-- or @click -->
+        <!-- <h2 v-on:click="showDetail = !showDetail"> {{ title}}</h2> -->
+        <div id="bookDetail" v-show="showDetail">
+            <p>{{ author }}</p>
+            <p>{{ summary }}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="colors">
+        <ul>
+            <li v-bind:style="{color:color}" v-for="(color, index) in rainbow">{{index}}: {{ color }}</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <div id="media-list">
+            <h1>{{ title }}</h1>
+            <select v-on:change="filterList">
+                <option value="">Select a type of media...</option>
+                <option v-for="item in uniqueItemsList"> {{ item }}</option>
+            </select>
+            <ul>
+                <li v-show="type === '' || type === media.type"
+                v-for="media in mediaList"
+                v-on:click="toggleDetails(media)"
+                v-bind:class="[media.showDetail ? 'less': 'more', media.type]"
+                >
+                <!-- v-bind:class="[{less: media.showDetail, more: !media.showDetail}, media.type]" -->
+                    <h3>{{ media.title }}</h3>
+                    <div v-show="media.showDetail">
+                        <p>{{ media.description}}</p>
+                        <p v-if="media.contributor" class="byline">By: {{ media.contributor }}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="/flashcards.html"><button> Go to the Flashcard page!</button></a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
